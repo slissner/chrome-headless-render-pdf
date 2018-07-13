@@ -22,12 +22,15 @@ const argv = require('minimist')(process.argv.slice(2), {
         'window-size',
         'paper-width',
         'paper-height',
-        'page-ranges'
+				'page-ranges',
+				'header-template',
+				'footer-template',
     ],
     boolean: [
         'no-margins',
         'include-background',
-        'landscape '
+				'landscape',
+				'display-header-footer',
     ]
 });
 
@@ -107,6 +110,21 @@ if(typeof argv['page-ranges'] === 'string') {
     pageRanges = argv['page-ranges'];
 }
 
+let displayHeaderFooter;
+if (argv['display-header-footer']) {
+    displayHeaderFooter = true;
+}
+
+let headerTemplate;
+if(typeof argv['header-template'] === 'string') {
+    headerTemplate = argv['header-template'];
+}
+
+let footerTemplate;
+if(typeof argv['footer-template'] === 'string') {
+    footerTemplate = argv['footer-template'];
+}
+
 (async () => {
     try {
         const jobs = generateJobList(urls, pdfs);
@@ -122,7 +140,10 @@ if(typeof argv['page-ranges'] === 'string') {
             windowSize,
             paperWidth,
             paperHeight,
-            pageRanges,
+						pageRanges,
+						displayHeaderFooter,
+						headerTemplate,
+						footerTemplate,
         });
     } catch (e) {
         console.error(e);
@@ -158,8 +179,11 @@ function printHelp() {
     console.log('    --landscape              generate pdf in landscape orientation');
     console.log('    --window-size            specify window size, width(,x*)height (e.g. --window-size 1600,1200 or --window-size 1600x1200)');
     console.log('    --paper-width            specify page width in inches (defaults to 8.5 inches)');
-    console.log('    --paper-height           specify page height in inches (defaults to 11 inches)');
-    console.log('    --page-ranges            specify pages to render default all pages,  e.g. 1-5, 8, 11-13');
+		console.log('    --paper-height           specify page height in inches (defaults to 11 inches)');
+		console.log('    --page-ranges            specify pages to render default all pages,  e.g. 1-5, 8, 11-13');
+		console.log('    --display-header-footer  display text headers and footers');
+    console.log('    --header-template        HTML template for the header. Inject variables using the classes "date", "title", "url", "pageNumber" or "totalPages"');
+    console.log('    --footerTemplate         HTML template for the footer. Inject variables using the classes "date", "title", "url", "pageNumber" or "totalPages"');
     console.log('');
     console.log('  Example:');
     console.log('    Render single pdf file');

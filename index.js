@@ -31,7 +31,10 @@ class RenderPDF {
             paperWidth: def('paperWidth', undefined),
             paperHeight: def('paperHeight', undefined),
             includeBackground: def('includeBackground', undefined),
-            pageRanges: def('pageRanges', undefined),
+				    pageRanges: def('pageRanges', undefined),
+				    displayHeaderFooter: def('displayHeaderFooter', false),
+				    headerTemplate: def('headerTemplate', undefined),
+				    footerTemplate: def('footerTemplate', undefined),
         };
 
         this.commandLineOptions = {
@@ -116,7 +119,7 @@ class RenderPDF {
                         });
                     });
                 });
-
+								
                 const pdf = await Page.printToPDF(options);
                 const buff = Buffer.from(pdf.data, 'base64');
                 client.close();
@@ -155,7 +158,19 @@ class RenderPDF {
 
         if(this.options.pageRanges !== undefined) {
             options.pageRanges = this.options.pageRanges;
-        }
+				}
+			
+				if (this.options.displayHeaderFooter !== undefined) {
+				    options.displayHeaderFooter = !!this.options.displayHeaderFooter;
+				}
+				
+				if (this.options.headerTemplate !== undefined) {
+				    options.headerTemplate = this.options.headerTemplate;
+			  }
+				
+				if (this.options.footerTemplate !== undefined) {
+				    options.footerTemplate = this.options.footerTemplate;
+				}
 
         return options;
     }

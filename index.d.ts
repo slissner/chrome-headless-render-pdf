@@ -11,7 +11,10 @@ interface IRenderPdfOptions {
     windowSize?: boolean;
     paperWidth?: string;
     paperHeight?: string;
-    pageRanges?: string;
+		pageRanges?: string;
+		displayHeaderFooter?: boolean;
+		headerTemplate?: string;
+		footerTemplate?: string;
 }
 
 interface IJobPair {
