@@ -1,5 +1,8 @@
-This tool require Google Chrome installed in version >59 to work, 
-but latest version is recommended.
+# Motivation
+`google-chrome` currently has an option to render pdf files when used with headless option. But this option contains hardcoded adding header and footer to page rendering it unusable for pdf generation. This module allows to generate it without those elements.
+
+
+This tool requires Google Chrome installed in version >59 to work, but latest version is recommended.
 
 # Usage: 
 ```
@@ -26,21 +29,25 @@ chrome-headless-render-pdf [OPTIONS] --url=URL --pdf=OUTPUT-FILE [--url=URL2 --p
   Example:
     Render single pdf file
       chrome-headless-render-pdf --url http://google.com --pdf test.pdf
+    
     Render pdf from local file
       chrome-headless-render-pdf --url file:///tmp/example.html --pdf test.pdf
+    
     Render multiple pdf files
       chrome-headless-render-pdf --url http://google.com --pdf test.pdf --url file:///tmp/example.html --pdf test.pdf
+    
     Render pdf with custom footer and no header (styles are a necessity)
       chrome-headless-render-pdf --url file:///tmp/example.html --pdf test.pdf --display-header-footer --header-template ' ' --footer-template '<style type="text/css">.footer{font-size:8px;width:100%;text-align:center;color:#000;padding-left:0.65cm;}</style><div class="footer"><span class="pageNumber"></span> / <span class="totalPages"></span></div>'
 ```
 
 # This tool can be also used programmatically:
-```
+
+```js
 const RenderPDF = require('chrome-headless-render-pdf');
 RenderPDF.generateSinglePdf('http://google.com', 'outputPdf.pdf');
 ```
 
-```
+```js
 const RenderPDF = require('chrome-headless-render-pdf');
 RenderPDF.generateMultiplePdf([
     {'http://google.com', 'outputPdf.pdf'},
@@ -48,7 +55,7 @@ RenderPDF.generateMultiplePdf([
 ]);
 ```
 
-```
+```js
 const RenderPDF = require('chrome-headless-render-pdf');
 RenderPDF.generatePdfBuffer('http://google.com')
     .then((pdfBuffer) => {
@@ -56,13 +63,9 @@ RenderPDF.generatePdfBuffer('http://google.com')
     });
 ```
 
-# you can also use it from typescript or es6
-```
+# You can also use it from typescript or es6
+
+```ts
 import RenderPDF from 'chrome-headless-render-pdf';
 RenderPDF.generateSinglePdf('http://google.com', 'outputPdf.pdf');
 ```
-
-# Motivation
-google-chrome currently have option to render pdf files when used with headless option. 
-But this option contains hardcoded adding header and footer to page rendering it unusable for pdf generation.
-This module allows to generate it without those elements.
