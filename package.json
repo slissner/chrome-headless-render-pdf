@@ -10,7 +10,7 @@
     "chrome-headless-render-pdf": "dist/cli/chrome-headless-render-pdf.js"
   },
   "scripts": {
-    "install": "yarn run build",
+    "prepublish": "yarn run build",
     "build": "babel index.js cli/chrome-headless-render-pdf.js --presets env --plugins transform-runtime --out-dir dist/",
     "start": "yarn run build && node dist/cli/chrome-headless-render-pdf.js"
   },
