@@ -24,7 +24,7 @@ chrome-headless-render-pdf [OPTIONS] --url=URL --pdf=OUTPUT-FILE [--url=URL2 --p
     --page-ranges            specify pages to render default all pages,  e.g. 1-5, 8, 11-13
     --display-header-footer  display text headers and footers
     --header-template        HTML template for the header. Inject variables using the classes "date", "title", "url", "pageNumber" or "totalPages"
-    --footerTemplate         HTML template for the footer. Inject variables using the classes "date", "title", "url", "pageNumber" or "totalPages"
+    --footer-template         HTML template for the footer. Inject variables using the classes "date", "title", "url", "pageNumber" or "totalPages"
     
   Example:
     Render single pdf file
